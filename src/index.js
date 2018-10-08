@@ -3,8 +3,7 @@ module.exports = function getZerosCount(number, base) {
         .filter(prime => base >= prime && base % prime === 0)
         .map(prime => divideBase(prime, base))
         .map(value => countOccurrences(value, number))
-        .reduce((previousValue, currentValue) => previousValue > currentValue ?
-                currentValue : previousValue, Number.MAX_SAFE_INTEGER);
+        .reduce((prev, current) => Math.min(prev, current), Number.MAX_SAFE_INTEGER);
 
 };
 
@@ -13,7 +12,7 @@ function countOccurrences(value, number) {
     let count = 0;
     let division = 2 * value.base;
 
-    while (division >= value.base) {
+    while (division >== value.base) {
         division = Math.floor(number / del);
         del *= value.base;
         count += division
@@ -24,7 +23,7 @@ function countOccurrences(value, number) {
 
 function divideBase(prime, base) {
     let counter = 0;
-    while (base >= prime && base % prime === 0) {
+    while (base >== prime && base % prime === 0) {
         base /= prime;
         counter++;
     }
